@@ -9,8 +9,9 @@ from states.personalData import PersonalData
 
 from aiogram.dispatcher.filters.builtin import CommandStart
 
-@dp.message_handler(Command('anketa'))
-async def enter_data(message: types.Message):
+@dp.message_handler(CommandStart())
+async def bot_start(message: types.Message):
+    await message.answer(f"Salom, {message.from_user.full_name}!")
     await message.answer('To`liq ismingizni kiriting:')
     await PersonalData.fullname.set()
 
@@ -58,11 +59,12 @@ async def answer_phone(message: types.Message, state: FSMContext):
     phone = data.get('phone')
 
     msg = "Quyidagi ma'lumotlar qabul qilindi:\n"
-    msg += f"Ismingiz - {name}\n"
-    msg += f"Sertifikat - {sertificate}\n"
-    msg += f"O'qimoqchi bo'lgan davlatingiz - {country}\n"
-    msg += f"Telefon raqamingiz - {phone}"
+    msg += f"👨‍💼 Ism va Familiya: - {name}\n"
+    msg += f"📚 Sertifikat - {sertificate}\n"
+    msg += f"🇺🇿 O'qimoqchi bo'lgan davlatingiz - {country}\n"
+    msg += f"📞 Telefon raqamingiz - {phone}"
     await message.answer(msg, reply_markup=menu)
+    await message.answer('Ma`lumotlarni tasdiqlang 👇')
 
     await state.finish()
 

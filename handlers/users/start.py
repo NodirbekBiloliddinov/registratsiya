@@ -5,7 +5,4 @@ from loader import dp
 from states.personalData import PersonalData
 
 
-@dp.message_handler(CommandStart())
 
-async def bot_start(message: types.Message):
-    await message.answer(f"Salom, {message.from_user.full_name}!")
